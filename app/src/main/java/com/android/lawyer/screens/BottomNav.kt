@@ -25,12 +25,16 @@ import com.android.lawyer.model.BottomNavItem
 @Composable
 fun bottomNav(navController: NavHostController){
 
-    val navController1= rememberNavController()
+    val navController1 = rememberNavController()
 
-    Scaffold(bottomBar = { BottomNavBar(navController1 = navController1)}){innerpadding->
-        NavHost(navController = navController1,
-            startDestination =Routes.Home.routes,
-            modifier = Modifier.padding(innerpadding) ){
+    Scaffold(bottomBar = { BottomNavBar(
+        navController1 = navController1)
+    }) { innerpadding ->
+        NavHost(
+            navController = navController1,
+            startDestination = Routes.Home.routes,
+            modifier = Modifier.padding(innerpadding)
+        ) {
 
             composable(Routes.Home.routes) {
                 Home(navController)
@@ -40,7 +44,7 @@ fun bottomNav(navController: NavHostController){
                 Call(navController)
             }
 
-             composable(route = Routes.Profile.routes) {
+            composable(route = Routes.Profile.routes) {
                 Profile(navController)
             }
 
@@ -51,14 +55,14 @@ fun bottomNav(navController: NavHostController){
 }
 
 @Composable
-fun BottomNavBar(navController1: NavHostController){
+fun BottomNavBar(navController1: NavHostController) {
 
-    val backStackEntry=navController1.currentBackStackEntryAsState()
+    val backStackEntry = navController1.currentBackStackEntryAsState()
 
-    val list= listOf(
-        BottomNavItem("instant", Routes.Home.routes,Icons.Rounded.Star),
-        BottomNavItem("call", Routes.Call.routes,Icons.Rounded.Phone),
-        BottomNavItem("profile", Routes.Profile.routes,Icons.Rounded.Person),
+    val list = listOf(
+        BottomNavItem("instant", Routes.Home.routes, Icons.Rounded.Star),
+        BottomNavItem("call", Routes.Call.routes, Icons.Rounded.Phone),
+        BottomNavItem("profile", Routes.Profile.routes, Icons.Rounded.Person),
     )
 
     BottomAppBar {
@@ -69,15 +73,15 @@ fun BottomNavBar(navController1: NavHostController){
 
             NavigationBarItem(selected = selected,
                 onClick = {
-                          navController1.navigate(it.route){
-                              popUpTo(navController1.graph.findStartDestination().id){
-                                  saveState =true
+                    navController1.navigate(it.route) {
+                        popUpTo(navController1.graph.findStartDestination().id) {
+                            saveState = true
 
-                              }
-                              launchSingleTop = true
-                          }
+                        }
+                        launchSingleTop = true
+                    }
                 },
-                icon = { Icon(imageVector = it.icon,contentDescription = null) })
+                icon = { Icon(imageVector = it.icon, contentDescription = null) })
         }
     }
 

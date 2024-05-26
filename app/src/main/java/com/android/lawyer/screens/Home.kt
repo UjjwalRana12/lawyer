@@ -19,7 +19,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -50,22 +52,40 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.android.lawyer.model.LawSuits
+import com.android.lawyer.model.MostAskedQuestion
 import kotlinx.coroutines.launch
 
 @Composable
 fun Home(navController: NavHostController) {
 
     val lawReferences = listOf(
-        LawSuits(painterResource(id =R.drawable.image1 ), "Law Ref 1"),
-        LawSuits(painterResource(id =R.drawable.image1 ), "Law Ref 1"),
-        LawSuits(painterResource(id =R.drawable.image1 ), "Law Ref 1"),
+        LawSuits(painterResource(id = R.drawable.legal_2863339), "Law And Orders"),
+        LawSuits(painterResource(id = R.drawable.verdict_4266423), "Divorce"),
+        LawSuits(painterResource(id = R.drawable.policies_12183265), "Equality"),
 
-    )
+        )
+
+    val mostAskedQues = listOf(
+        MostAskedQuestion(
+            painterResource(id = R.drawable.woman_15998786),
+            "Child Marriage",
+            "child marriage is.."
+        ),
+        MostAskedQuestion(painterResource(id = R.drawable.judicial_10164980), "DPSP", "about dpsp"),
+        MostAskedQuestion(
+            painterResource(id = R.drawable.justice_10830899),
+            "Equality",
+            "about equality"
+        ),
+
+
+        )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -92,6 +112,8 @@ fun Home(navController: NavHostController) {
 
         lawRecycler(lawSuits = lawReferences)
 
+        mostAskedQuestion(mostAskedQues = mostAskedQues)
+
         myBottomSheet()
 
     }
@@ -111,7 +133,8 @@ fun lawRecycler(lawSuits: List<LawSuits>) {
             Card(
                 modifier = Modifier
                     .padding(end = 3.dp)
-                    .wrapContentSize()
+                    .height(90.dp)
+                    .width(90.dp)
                     .border(1.dp, Color.Gray, shape)
                     .clip(shape),
                 colors = CardDefaults.cardColors(
@@ -122,7 +145,7 @@ fun lawRecycler(lawSuits: List<LawSuits>) {
             ) {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier.wrapContentSize()
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -132,15 +155,86 @@ fun lawRecycler(lawSuits: List<LawSuits>) {
                         Image(
                             painter = item.image,
                             contentDescription = null,
-                            modifier = Modifier.size(44.dp).clip(CircleShape),
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clip(CircleShape),
                             alignment = Alignment.Center
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = item.laws,
                             color = Color.Black,
-                            fontSize = 14.sp
+                            fontSize = 14.sp,
+                            maxLines = 4,
+                            overflow = TextOverflow.Ellipsis
+
                         )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun mostAskedQuestion(mostAskedQues: List<MostAskedQuestion>) {
+    val shape: Shape = RoundedCornerShape(8.dp)
+
+    LazyRow(
+        modifier = Modifier.padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(mostAskedQues) { item ->
+            Card(
+                modifier = Modifier
+                    .padding(end = 3.dp)
+                    .height(80.dp)
+                    .width(150.dp)
+                    .border(1.dp, Color.Gray, shape)
+                    .clip(shape),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White
+                ),
+                elevation = CardDefaults.cardElevation(14.dp),
+                shape = shape
+            ) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Image(
+                            painter = item.imageRef,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clip(CircleShape),
+                            alignment = Alignment.Center
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+
+                        Column {
+                            Text(
+                                text = item.heading,
+                                color = Color.Black,
+                                fontSize = 18.sp,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+
+                            Text(
+                                text = item.theory,
+                                color = Color.Black,
+                                fontSize = 12.sp,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
                     }
                 }
             }
@@ -177,7 +271,7 @@ fun myBottomSheet() {
                 style = TextStyle(color = Color.Blue),
                 textAlign = TextAlign.Center,
 
-            )
+                )
             Spacer(modifier = Modifier.height(32.dp))
             Button(onClick = {
                 coroutineScope.launch {
@@ -208,3 +302,15 @@ fun mainText(text: String) {
 }
 
 
+@Preview
+@Composable
+fun previewlaw() {
+    val mostAskedQues = listOf(
+        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
+        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
+        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
+
+
+        )
+    mostAskedQuestion(mostAskedQues = mostAskedQues)
+}

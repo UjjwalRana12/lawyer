@@ -12,3 +12,9 @@ data class LawSuits(
     val image: Painter,
     val laws: String
 )
+
+data class MostAskedQuestion(
+    val imageRef:Painter,
+    val heading: String,
+    val theory: String
+)

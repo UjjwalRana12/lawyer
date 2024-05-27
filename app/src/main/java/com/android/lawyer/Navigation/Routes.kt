@@ -8,5 +8,8 @@ sealed class Routes(val routes:String){
     object Call : Routes("call")
     object Register : Routes("register")
 
+    object ChatScreen:Routes("chat_screen")
+
+
 
 }

@@ -1,8 +1,11 @@
 package com.android.lawyer
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -16,8 +19,12 @@ import androidx.navigation.NavGraph
 import androidx.navigation.compose.rememberNavController
 import com.android.lawyer.Navigation.navGraph
 import com.android.lawyer.ui.theme.LawyerTheme
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 
 class MainActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val fontFamily = FontFamily(
             Font(R.font.light),

@@ -5,8 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.android.lawyer.screens.Call
+import com.android.lawyer.screens.ChatScreen
 import com.android.lawyer.screens.Home
 import com.android.lawyer.screens.Profile
+import com.android.lawyer.screens.aiChat
 import com.android.lawyer.screens.bottomNav
 
 @Composable
@@ -30,6 +32,10 @@ fun navGraph(navController: NavHostController){
 
             composable(route = Routes.Home.routes) {
             Home(navController)
+        }
+
+        composable(Routes.ChatScreen.routes){
+            ChatScreen(navController)
         }
 
     }

@@ -5,6 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.AlertDialogDefaults.shape
@@ -57,6 +59,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.android.lawyer.Navigation.Routes
 import com.android.lawyer.model.LawSuits
 import com.android.lawyer.model.MostAskedQuestion
 import kotlinx.coroutines.launch
@@ -114,10 +118,79 @@ fun Home(navController: NavHostController) {
 
         mostAskedQuestion(mostAskedQues = mostAskedQues)
 
-        myBottomSheet()
+       // myBottomSheet()
+        //buttonChat(navController = navController)
+        aiChat(navController = navController)
+
 
     }
 
+}
+
+@Composable
+fun aiChat(navController: NavHostController) {
+    val shape: Shape = RoundedCornerShape(8.dp)
+
+    Row(
+        modifier = Modifier.padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+
+        Card(
+            modifier = Modifier
+                .padding(end = 3.dp)
+                .height(80.dp)
+                .fillMaxWidth()
+                .border(1.dp, Color.Gray, shape)
+                .clickable {
+                    navController.navigate(Routes.ChatScreen.routes)
+                }
+                .clip(shape),
+            colors = CardDefaults.cardColors(
+                containerColor = Color.White
+            ),
+            elevation = CardDefaults.cardElevation(14.dp),
+            shape = shape
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(44.dp)
+                            .clip(CircleShape),
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    Column {
+                        Text(
+                            text = "Want a Quick Solution",
+                            color = Color.Black,
+                            fontSize = 18.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+
+                        Text(
+                            text = "image of question, proof,doubt etc",
+                            color = Color.Black,
+                            fontSize = 12.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 
@@ -301,16 +374,30 @@ fun mainText(text: String) {
     )
 }
 
-
+@Composable
+fun buttonChat(navController: NavHostController){
+    Text(text = "helo world")
+    Button(
+        modifier = Modifier
+            .padding(16.dp)
+            .height(50.dp)
+            .width(150.dp),
+        onClick = { navController.navigate(Routes.ChatScreen.routes) }
+    ) {
+        Text(text = "Go to Chat")
+    }
+}
 @Preview
 @Composable
 fun previewlaw() {
-    val mostAskedQues = listOf(
-        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
-        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
-        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
-
-
-        )
-    mostAskedQuestion(mostAskedQues = mostAskedQues)
+//    val mostAskedQues = listOf(
+//        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
+//        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
+//        MostAskedQuestion(painterResource(id = R.drawable.image1), "Law Ref 1", "text"),
+//
+//
+//        )
+   // mostAskedQuestion(mostAskedQues = mostAskedQues)
+    val navController= rememberNavController()
+    buttonChat(navController = navController)
 }

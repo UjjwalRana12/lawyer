@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -90,4 +91,10 @@ dependencies {
     implementation ("androidx.compose.foundation:foundation:1.4.0")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
+    // gemini api
+    implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
 }

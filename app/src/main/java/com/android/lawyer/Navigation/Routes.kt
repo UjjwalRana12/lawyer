@@ -10,6 +10,8 @@ sealed class Routes(val routes:String){
 
     object ChatScreen:Routes("chat_screen")
 
+    object Message:Routes("message")
+
 
 
 }

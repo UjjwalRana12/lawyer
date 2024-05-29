@@ -106,7 +106,7 @@ fun Home(navController: NavHostController) {
 
             Text(text = "Hello ujjwal", style = TextStyle(fontSize = 12.sp, color = Color.Black))
 
-            IconButton(onClick = { /*TODO*/ }) {
+             IconButton(onClick = { navController.navigate(Routes.Message.routes) }) {
 
                 Icon(imageVector = Icons.Rounded.Notifications, contentDescription = null)
 
@@ -118,7 +118,7 @@ fun Home(navController: NavHostController) {
 
         mostAskedQuestion(mostAskedQues = mostAskedQues)
 
-       // myBottomSheet()
+        // myBottomSheet()
         //buttonChat(navController = navController)
         aiChat(navController = navController)
 
@@ -375,7 +375,7 @@ fun mainText(text: String) {
 }
 
 @Composable
-fun buttonChat(navController: NavHostController){
+fun buttonChat(navController: NavHostController) {
     Text(text = "helo world")
     Button(
         modifier = Modifier
@@ -387,6 +387,7 @@ fun buttonChat(navController: NavHostController){
         Text(text = "Go to Chat")
     }
 }
+
 @Preview
 @Composable
 fun previewlaw() {
@@ -397,7 +398,7 @@ fun previewlaw() {
 //
 //
 //        )
-   // mostAskedQuestion(mostAskedQues = mostAskedQues)
-    val navController= rememberNavController()
+    // mostAskedQuestion(mostAskedQues = mostAskedQues)
+    val navController = rememberNavController()
     buttonChat(navController = navController)
 }

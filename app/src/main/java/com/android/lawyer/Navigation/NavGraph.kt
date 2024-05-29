@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.android.lawyer.screens.Call
 import com.android.lawyer.screens.ChatScreen
 import com.android.lawyer.screens.Home
+import com.android.lawyer.screens.Message
 import com.android.lawyer.screens.Profile
 import com.android.lawyer.screens.aiChat
 import com.android.lawyer.screens.bottomNav
@@ -38,5 +39,8 @@ fun navGraph(navController: NavHostController){
             ChatScreen(navController)
         }
 
+        composable(Routes.Message.routes){
+            Message(navController )
+        }
     }
 }
